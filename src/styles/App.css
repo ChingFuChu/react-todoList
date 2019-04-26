@@ -6,6 +6,20 @@
   box-sizing: border-box;
   padding: 1.1em;
 }
+.innerContainer {
+  display: flex;
+}
+.nav {
+  padding-left: 30px;
+  min-width: 70%;
+}
+
+.main {
+  max-width: 25%;
+  min-width: 140px;
+  flex: 1;
+  
+}
 
 header {
   margin-bottom: 0.9em;

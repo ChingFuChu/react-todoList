@@ -7,7 +7,7 @@ import EmptyState from './components/EmptyState';
 
 import './styles/App.css';
 
-class App extends React.Component {
+class AppCopy extends React.Component {
   constructor(props) {
     super(props);
     this.addItem = this.addItem.bind(this);
@@ -93,45 +93,54 @@ class App extends React.Component {
 
   render() {
     const {
-      items,
-      sessionIsRunning,
-      itemIdRunning,
-      areItemsMarkedAsCompleted,
-    } = this.state;
-    const isEmpty = items.length === 0;
-    return (
-      <div className="flex-wrapper">
-        <div className="container">
-        <header>
-          <h1 className="heading">Today</h1>
-          <ClearButton onClick={this.clearCompletedItems} />
-        </header>
-        {sessionIsRunning&&
-          <Timer
-            mode="WORK"
-            onSessionComplete={() => this.increaseSessionsCompleted(itemIdRunning)}
-            autoPlays
-            key = {itemIdRunning}
-          /> 
-        }
-        <div className="items-container">
-            { isEmpty? (<EmptyState />) :(items.map((item)=> 
-              <TodoItem description = {item.description}
-              sessionsCompleted = {item.sessionsCompleted}
-              isCompleted={item.isCompleted}
-              startSession={() => this.startSession(item.id)}
-              toggleIsCompleted ={() =>this.toggleItemIsCompleted(item.id)}
-              key = {item.id}/>
-            ))}
+        items,
+        sessionIsRunning,
+        itemIdRunning,
+        areItemsMarkedAsCompleted,
+      } = this.state;
+      const isEmpty = items.length === 0;
+
+      return (
+        <div className="flex-wrapper">
+            <div className="container">
+            <header>
+            <h1 className="heading">Today</h1>
+                <ClearButton onClick={this.clearCompletedItems} />
+            </header>
+            {sessionIsRunning&&
+            <Timer
+                mode="WORK"
+                onSessionComplete={() => this.increaseSessionsCompleted(itemIdRunning)}
+                autoPlays
+                key = {itemIdRunning}
+            /> }   
+            <div className = "innerContainer">
+                <div className = "nav">
+                { isEmpty? (<EmptyState />) :(items.map((item)=> 
+                        <TodoItem description = {item.description}
+                        sessionsCompleted = {item.sessionsCompleted}
+                        isCompleted={item.isCompleted}
+                        startSession={() => this.startSession(item.id)}
+                        toggleIsCompleted ={() =>this.toggleItemIsCompleted(item.id)}
+                        key = {item.id}/>
+                        ))}
+                </div>
+
+                <div className= "main">
+                    <div className="items-container">
+                    <footer>
+                    <TodoInput addItem={this.addItem} />
+                    </footer>
+                    
+                    </div>
+                </div>
+            </div>
             
+
+            </div>
         </div>
-        </div>
-        <footer>
-          <TodoInput addItem={this.addItem} />
-        </footer>
-      </div>
-    );
+      )
   }
 }
 
-export default App;
+export default AppCopy;
